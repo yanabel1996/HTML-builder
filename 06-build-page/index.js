@@ -4,13 +4,14 @@ const path = require('path');
 
 const pathTemplate = path.join(__dirname, 'template.html');
 const pathComponents = path.join(__dirname, 'components');
-let dataTemplate = '';
 
 
 
-fs.mkdir(path.join(__dirname, 'project-dist'), err => {
-    if (err) console.log(err);
-})
+fs.mkdir(path.join(__dirname, 'project-dist'),
+    { recursive: true, },
+    err => {
+        if (err) console.log(err);
+    })
 
 const replaceComponents = async () => {
     try {
@@ -39,13 +40,17 @@ const pathFolder = path.join(__dirname, 'assets');
 const pathCopyFolder = path.join(__dirname, 'project-dist', 'assets');
 
 function copyDir() {
-    fs.mkdir(pathCopyFolder, err => {
+    fs.mkdir(pathCopyFolder, 
+        { recursive: true, },
+        err => {
         if (err) console.log(err);
     });
     fs.promises.readdir(pathFolder).then(folders => {
         folders.forEach(folder => {
             const nameFolder = path.basename(folder);
-            fs.mkdir(path.join(pathCopyFolder, nameFolder), err => {
+            fs.mkdir(path.join(pathCopyFolder, nameFolder), 
+            { recursive: true, },
+            err => {
                 if (err) console.log(err);
             });
             fs.promises.readdir(path.join(pathFolder, nameFolder)).then(folder => {

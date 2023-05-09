@@ -1,9 +1,11 @@
 const fs = require('fs');
 const path = require('path');
 
-fs.mkdir(path.join(__dirname, 'project-dist'), err => {
-    if (err) console.log(err);
-})
+fs.mkdir(path.join(__dirname, 'project-dist'),
+    { recursive: true, },
+    err => {
+        if (err) console.log(err);
+    })
 
 const output = fs.createWriteStream(path.join(__dirname, 'project-dist', 'bundle.css'), 'utf-8');
 const pathStyles = path.join(__dirname, 'styles');
